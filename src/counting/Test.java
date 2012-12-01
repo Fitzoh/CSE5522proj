@@ -77,7 +77,7 @@ public class Test {
 			line = reader.readLine();
 		}
 		reader.close();
-		return (float)correct;//(float)total;
+		return (float)correct/(float)total;
 	}
 	
 	private static int countLines(File file) throws IOException {

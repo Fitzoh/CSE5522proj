@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 package counting;
+=======
+>>>>>>> 6076ef77bf85e8c24bebdc7d1948c96a7e5a9b54
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

@@ -2,6 +2,7 @@ package counting;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class Bigram {
 	private Map<String, Unigram> dict;
@@ -39,5 +40,10 @@ public class Bigram {
 			uni = dict.get(text.n_minus_1());
 		}
 		uni.multIncrement(text, count);
+	}
+
+	public PriorityQueue<WordCountPair> getWords(TextBuffer text) {
+		Unigram ngram = dict.get(text.n_minus_1());
+		return ngram.getWords(text);
 	}
 }

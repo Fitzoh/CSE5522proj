@@ -2,6 +2,8 @@ package counting;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
 
 public class Unigram {
 	private Map<String, Integer> dict;
@@ -34,6 +36,14 @@ public class Unigram {
 			dict.put(text.n_minus_0(), 0);
 		}
 		dict.put(text.n_minus_0(), dict.get(text.n_minus_0())+count);
+	}
+
+	public PriorityQueue<WordCountPair> getWords(TextBuffer text) {
+		PriorityQueue<WordCountPair> words = new PriorityQueue<WordCountPair>();
+		for (Entry<String, Integer> entry : dict.entrySet()) {
+			words.add(new WordCountPair(entry.getKey(), entry.getValue()));
+		}
+		return words;
 	}
 
 

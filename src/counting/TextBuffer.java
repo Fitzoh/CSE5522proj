@@ -1,4 +1,3 @@
-package counting;
 
 public class TextBuffer {
 	private String n_minus_2;

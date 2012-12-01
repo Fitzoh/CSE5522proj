@@ -17,7 +17,7 @@ public class DocFormat {
 			line = stripPunctuationFromString(line);
 			while (line.length() > 0) {
 				word = getNextWord(line);
-				word.toLowerCase();
+				word = word.toLowerCase();
 				writer.write(word);
 				writer.append('\n');
 				if (word.length() >= line.length()) {

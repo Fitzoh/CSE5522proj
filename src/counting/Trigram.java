@@ -23,12 +23,18 @@ public class Trigram {
 	//get most likely list of words
 	public PriorityQueue<WordCountPair> getWords(TextBuffer text) {
 		Bigram ngram = dict.get(text.n_minus_2());
+		//if (ngram == null) {
+		//	ngram = dict.get(null);
+		//} 
 		return (ngram == null) ? null : ngram.getWords(text);
 	}
 	
 	//combine counts of this and other bigram
 	public void merge(Trigram other) {
 		for (String key : other.dict.keySet()){
+			if (! dict.containsKey(key)){
+				dict.put(key, new Bigram());
+			}
 			Bigram bi = dict.get(key);
 			bi.merge(other.dict.get(key));
 		}

@@ -23,6 +23,9 @@ public class Bigram {
 	//combine counts of this and other bigram
 	public void merge(Bigram other) {
 		for (String key : other.dict.keySet()){
+			if (! dict.containsKey(key)){
+				dict.put(key, new Unigram());
+			}
 			Unigram uni = dict.get(key);
 			uni.merge(other.dict.get(key));
 		}

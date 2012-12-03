@@ -9,12 +9,14 @@ import java.util.PriorityQueue;
 
 
 public class Test {
-	
+	static Counter totalCounter;
 	public static void main(String[] args) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(new File(args[0])));
 		String line = reader.readLine();
+		totalCounter = new Counter();
 		while (line != null) {
-			System.out.println(PerformTesting(line, Integer.parseInt(args[1]), Float.parseFloat(args[2])) * 100 + "% accuracy with file " + line);
+			//System.out.println(PerformTesting(line, Integer.parseInt(args[1]), Float.parseFloat(args[2])) * 100 + "% accuracy with file " + line);
+			System.out.println(PerformTesting(line, Integer.parseInt(args[1]), Float.parseFloat(args[2])) * 100);
 			line = reader.readLine();
 		}
 		reader.close();
@@ -29,22 +31,23 @@ public class Test {
 		int fileLength = countLines(formattedFile);
 		if (testingType == 0) {
 			trainingFile = createSmallerFile(formattedFile, "training_file", 0, (int)(fileLength * percentTraining));
-			//testingFile = createSmallerFile(formattedFile,"testing_file", (int)(fileLength * percentTraining), fileLength);
-			testingFile = createSmallerFile(formattedFile,"testing_file", 0, fileLength);
-
+			testingFile = createSmallerFile(formattedFile,"testing_file", (int)(fileLength * percentTraining), fileLength);
 		} else {
 			trainingFile = createSmallerFile(formattedFile,"training_file", (int)(fileLength * percentTraining), fileLength);
 			testingFile = createSmallerFile(formattedFile, "tresting_file", 0, (int)(fileLength * percentTraining));
 		}
 		Counter testingCounter = new Counter();
-		testingCounter.countFile(trainingFile);
 		
+		testingCounter.countFile(trainingFile);
+		//testingCounter.countFile(formattedFile);
+		//totalCounter.merge(testingCounter);
+		//System.out.println(testingCounter.getWords(new TextBuffer("to", "speak", null)));
+		//System.exit(0);
 		
 		BufferedReader reader = new BufferedReader(new FileReader(testingFile));
 		String line = reader.readLine();
 		ArrayList<String> forTrigram = new ArrayList<String>();
 		TextBuffer text = new TextBuffer();
-		forTrigram.add(null);
 		forTrigram.add(null);
 		forTrigram.add(null);
 		PriorityQueue<WordCountPair> likelyWords = new PriorityQueue<WordCountPair>();
@@ -54,13 +57,14 @@ public class Test {
 				forTrigram = new ArrayList<String>();
 				forTrigram.add(null);
 				forTrigram.add(null);
-				//forTrigram.add(null);
 			} else {
 				forTrigram.add(line);
 				forTrigram.remove(0);
-				text = new TextBuffer(forTrigram.get(0), forTrigram.get(1));
+				text = new TextBuffer(forTrigram.get(0), forTrigram.get(1), null);
 				temp = testingCounter.getWords(text);
+				//temp = totalCounter.getWords(text);
 				if (temp != null) {
+					//System.out.println(forTrigram.get(0) + ' ' + forTrigram.get(1) + ' ' + null);
 					likelyWords = new PriorityQueue<WordCountPair>(temp);
 				} else {
 					likelyWords = new PriorityQueue<WordCountPair>();
